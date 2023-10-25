@@ -4,11 +4,12 @@ import { IAuthor } from "../interface";
 import { _createAuthor } from "../services/author";
 import useAuthorStore from "../stores/useAuthorStore";
 
-const useCreateAuthor = (author: IAuthor) => {
+const useCreateAuthor = () => {
   const { getAllAuthors } = useAuthorStore();
-  return useMutation(() => _createAuthor(author), {
+  return useMutation({
+    mutationFn: (author: IAuthor) => _createAuthor(author),
     onSuccess: async () => {
-      getAllAuthors();
+      return getAllAuthors();
     },
   });
 };

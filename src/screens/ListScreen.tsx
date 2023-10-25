@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import { styled } from "nativewind";
 import React from "react";
 import {
@@ -9,16 +10,15 @@ import {
   ActivityIndicator,
   Alert,
 } from "react-native";
+import { showMessage } from "react-native-flash-message";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import AppSpinner from "../components/AppSpinner";
+import ListItem from "../components/ListItem";
+import useDeleteAuthor from "../hooks/useDeleteAuthor";
 import useGetAllAuthors from "../hooks/useGetAllAuthors";
 import { IAuthor } from "../interface";
 import useAuthorStore from "../stores/useAuthorStore";
-import ListItem from "../components/ListItem";
-import useDeleteAuthor from "../hooks/useDeleteAuthor";
-import { showMessage } from "react-native-flash-message";
-import AppSpinner from "../components/AppSpinner";
-import { useNavigation } from "@react-navigation/native";
 
 const StyledView = styled(View);
 const StyledSafeAreaView = styled(SafeAreaView);

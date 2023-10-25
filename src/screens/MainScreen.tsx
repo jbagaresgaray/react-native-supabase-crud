@@ -1,21 +1,21 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { DateTimePickerEvent } from "@react-native-community/datetimepicker";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { styled } from "nativewind";
 import React, { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { View } from "react-native";
+import { showMessage } from "react-native-flash-message";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as yup from "yup";
 
 import AppButton from "../components/AppButton";
 import AppDatePicker from "../components/AppDatePicker";
+import AppSpinner from "../components/AppSpinner";
 import AppTextInput from "../components/AppTextInput";
 import useCreateAuthor from "../hooks/useCreateAuthor";
-import { showMessage } from "react-native-flash-message";
-import { useNavigation, useRoute } from "@react-navigation/native";
-import useAuthorStore from "../stores/useAuthorStore";
-import AppSpinner from "../components/AppSpinner";
 import useUpdateAuthor from "../hooks/useUpdateAuthor";
+import useAuthorStore from "../stores/useAuthorStore";
 
 type FormData = {
   title?: string;
@@ -42,6 +42,8 @@ const MainScreen = () => {
   const author = useAuthorStore((state) => state.author);
   const isSpinner = useAuthorStore((state) => state.isSpinner);
   const { getAuthor } = useAuthorStore();
+  const createAuthorMutation = useCreateAuthor();
+  const updateAuthorMutation = useUpdateAuthor();
 
   const { control, getValues, setValue, handleSubmit } = useForm<FormData>({
     defaultValues: {
@@ -51,20 +53,6 @@ const MainScreen = () => {
       genre: "",
     },
     resolver: yupResolver(schema),
-  });
-
-  const createAuthorMutation = useCreateAuthor({
-    title: getValues("title"),
-    author: getValues("author"),
-    publishedDate: curDate,
-    genre: getValues("genre"),
-  });
-
-  const updateAuthorMutation = useUpdateAuthor(params?.authorId, {
-    title: getValues("title"),
-    author: getValues("author"),
-    publishedDate: curDate,
-    genre: getValues("genre"),
   });
 
   const isLoading = useMemo(
@@ -102,9 +90,22 @@ const MainScreen = () => {
     console.log("data: ", data);
 
     if (params?.action === "update") {
-      updateAuthorMutation.mutate();
+      updateAuthorMutation.mutate({
+        id: params?.authorId,
+        author: {
+          title: getValues("title"),
+          author: getValues("author"),
+          publishedDate: curDate,
+          genre: getValues("genre"),
+        },
+      });
     } else {
-      createAuthorMutation.mutate();
+      createAuthorMutation.mutate({
+        title: getValues("title"),
+        author: getValues("author"),
+        publishedDate: curDate,
+        genre: getValues("genre"),
+      });
     }
   });
 

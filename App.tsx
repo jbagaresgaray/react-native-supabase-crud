@@ -3,7 +3,7 @@ import React from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { QueryClientProvider } from "react-query";
 
-import RootNavigation from "./src/navigators";
+import BottomTabs from "./src/navigators/BottomTabs";
 import queryClient from "./src/services/query";
 
 export default function App() {
@@ -11,7 +11,7 @@ export default function App() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <QueryClientProvider client={queryClient}>
         <NavigationContainer>
-          <RootNavigation />
+          <BottomTabs />
         </NavigationContainer>
       </QueryClientProvider>
     </GestureHandlerRootView>

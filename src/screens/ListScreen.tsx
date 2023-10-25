@@ -6,6 +6,7 @@ import {
   RefreshControl,
   SafeAreaView,
   Image,
+  ActivityIndicator,
 } from "react-native";
 import useAuthorStore from "../stores/useAuthorStore";
 import useGetAllAuthors from "../hooks/useGetAllAuthors";
@@ -58,14 +59,20 @@ const ListScreen = () => {
   };
 
   return (
-    <SafeAreaView>
-      <FlatList
-        data={authors}
-        renderItem={(item) => renderItem(item)}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-      />
+    <SafeAreaView className="flex-1 flex bg-white">
+      {isLoading && !refreshing ? (
+        <View className="flex flex-1 justify-center items-center">
+          <ActivityIndicator size="large" />
+        </View>
+      ) : (
+        <FlatList
+          data={authors}
+          renderItem={(item) => renderItem(item)}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        />
+      )}
     </SafeAreaView>
   );
 };

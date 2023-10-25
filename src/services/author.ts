@@ -2,14 +2,14 @@ import supabase from "./";
 import { IAuthor } from "../interface";
 
 export const _createAuthor = async (author: IAuthor) => {
-  const { data, error, status } = await supabase
+  const { data, error } = await supabase
     .from("author")
     .insert({
       ...author,
     })
     .select();
 
-  if (data && status === 200) {
+  if (error) {
     throw error;
   }
 
@@ -19,13 +19,14 @@ export const _createAuthor = async (author: IAuthor) => {
 };
 
 export const _getAuthor = async (id: number) => {
-  const { data, error, status } = await supabase
+  const { data, error } = await supabase
     .from("author")
     .select(`id, title, author, genre, publishedDate`)
     .eq("id", id)
     .single();
+  console.log("data: ", data);
 
-  if (data && status === 200) {
+  if (error) {
     throw error;
   }
 
@@ -35,29 +36,35 @@ export const _getAuthor = async (id: number) => {
 };
 
 export const _getAllAuthors = async () => {
-  const { data, error, status } = await supabase
+  const { data, error } = await supabase
     .from("author")
     .select(`id, title, author, genre, publishedDate`);
 
-  if (error && status !== 406) {
+  if (error) {
     throw error;
   }
 
-  if (data && status === 200) {
+  if (data) {
     return data;
   }
 };
 
 export const _updateAuthor = async (id: number, author: IAuthor) => {
-  const { data, error, status } = await supabase
+  console.log("IDNumber: ", id);
+  const { data, error } = await supabase
     .from("author")
     .update({
-      ...author,
+      title: author.title,
+      author: author.author,
+      publishedDate: author.publishedDate,
+      genre: author.genre,
     })
     .eq("id", id)
     .select();
+  console.log("UpdateData: ", data);
+  console.log("UpdateError: ", error);
 
-  if (data && status === 200) {
+  if (error) {
     throw error;
   }
 
@@ -67,12 +74,9 @@ export const _updateAuthor = async (id: number, author: IAuthor) => {
 };
 
 export const _deleteAuthor = async (id: number) => {
-  const { data, error, status } = await supabase
-    .from("author")
-    .delete()
-    .eq("id", id);
+  const { data, error } = await supabase.from("author").delete().eq("id", id);
 
-  if (data && status === 200) {
+  if (error) {
     throw error;
   }
 

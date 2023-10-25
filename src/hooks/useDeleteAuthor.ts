@@ -3,13 +3,14 @@ import { useMutation } from "react-query";
 import { _deleteAuthor } from "../services/author";
 import useAuthorStore from "../stores/useAuthorStore";
 
-const useCreateAuthor = (id: number) => {
+const useDeleteAuthor = () => {
   const { getAllAuthors } = useAuthorStore();
-  return useMutation(() => _deleteAuthor(id), {
+  return useMutation({
+    mutationFn: (id: number) => _deleteAuthor(id),
     onSuccess: async () => {
-      getAllAuthors();
+      return getAllAuthors();
     },
   });
 };
 
-export default useCreateAuthor;
+export default useDeleteAuthor;

@@ -7,6 +7,7 @@ interface AuthorState {
   authors: IAuthor[] | null;
   author: IAuthor | null;
   isLoading: boolean;
+  isSpinner: boolean;
   setAuthors: (data: IAuthor[] | null) => void;
   cleanAuthors: () => void;
   getAuthor: (id: number) => Promise<IAuthor | void>;
@@ -16,16 +17,18 @@ interface AuthorState {
 const useAuthorStore = create<AuthorState>((set) => ({
   authors: null,
   isLoading: false,
+  isSpinner: false,
   author: null,
   setAuthors: (data: IAuthor[]) => set({ authors: data }),
   cleanAuthors: () => set({ authors: null }),
   getAuthor: async (id: number) => {
     try {
+      set({ isSpinner: true });
       const response = await _getAuthor(id);
-      set({ author: response });
+      set({ author: response, isSpinner: false });
       return Promise.resolve();
     } catch (error) {
-      set({ author: null });
+      set({ author: null, isSpinner: false });
       return Promise.reject(error);
     }
   },

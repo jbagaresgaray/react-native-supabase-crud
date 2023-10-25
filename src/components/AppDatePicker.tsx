@@ -3,7 +3,7 @@ import RNDateTimePicker, {
 } from "@react-native-community/datetimepicker";
 import { styled } from "nativewind";
 import React from "react";
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, Platform } from "react-native";
 
 interface Props extends BaseProps {
   label: string;
@@ -36,7 +36,10 @@ const AppDatePicker: React.FC<Props> = (props) => {
           {...props}
           value={value}
           mode="date"
-          display="inline"
+          display={Platform.select({
+            ios: "spinner",
+            default: "inline",
+          })}
         />
       )}
     </StyledView>

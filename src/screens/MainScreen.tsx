@@ -1,15 +1,16 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { DateTimePickerEvent } from "@react-native-community/datetimepicker";
+import { styled } from "nativewind";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import * as yup from "yup";
 
 import AppButton from "../components/AppButton";
 import AppDatePicker from "../components/AppDatePicker";
 import AppTextInput from "../components/AppTextInput";
 import useCreateAuthor from "../hooks/useCreateAuthor";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 type FormData = {
   title?: string;
@@ -24,6 +25,9 @@ const schema = yup.object({
   publishedDate: yup.date().required(),
   genre: yup.string().required(),
 });
+
+const StyledView = styled(View);
+const StyledSafeAreaView = styled(SafeAreaView);
 
 const MainScreen = () => {
   const [show, setShow] = useState(false);
@@ -68,8 +72,8 @@ const MainScreen = () => {
   };
 
   return (
-    <SafeAreaView className="flex-1 flex relative items-center p-3 bg-white">
-      <View className="flex-1 flex w-full spy">
+    <StyledSafeAreaView className="flex-1 flex relative items-center p-3 bg-white">
+      <StyledView className="flex-1 flex w-full spy">
         <AppTextInput
           label="Title"
           placeholder="Title"
@@ -89,9 +93,6 @@ const MainScreen = () => {
           onPress={showDatepicker}
           show={show}
           value={curDate}
-          onClose={() => {
-            setShow(false);
-          }}
           onChange={onChange}
         />
         <AppTextInput
@@ -101,13 +102,13 @@ const MainScreen = () => {
           name="genre"
           editable={!createAuthorMutation.isLoading}
         />
-      </View>
+      </StyledView>
       <AppButton
         onPress={onSubmit}
         label="Save"
         isLoading={createAuthorMutation.isLoading}
       />
-    </SafeAreaView>
+    </StyledSafeAreaView>
   );
 };
 

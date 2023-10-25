@@ -1,3 +1,4 @@
+import { styled } from "nativewind";
 import React from "react";
 import {
   ActivityIndicator,
@@ -11,22 +12,25 @@ interface Props extends TouchableOpacityProps {
   isLoading?: boolean;
 }
 
+const Button = styled(TouchableOpacity);
+const StyledText = styled(Text);
+
 const AppButton: React.FC<Props> = (props) => {
   const { label, isLoading } = props;
 
   return (
-    <TouchableOpacity
+    <Button
       {...props}
       className="absolute bottom-0 w-full mb-5 items-center bg-blue-600 py-3 rounded-lg"
     >
       {isLoading ? (
         <ActivityIndicator color="#FFF" size="large" />
       ) : (
-        <Text className="font-semibold leading-7 text-white text-base tracking-wide">
+        <StyledText className="font-semibold leading-7 text-white text-base tracking-wide">
           {label}
-        </Text>
+        </StyledText>
       )}
-    </TouchableOpacity>
+    </Button>
   );
 };
 

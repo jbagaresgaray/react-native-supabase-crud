@@ -4,10 +4,10 @@ import {
   Text,
   FlatList,
   RefreshControl,
-  SafeAreaView,
   Image,
   ActivityIndicator,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import useGetAllAuthors from "../hooks/useGetAllAuthors";
 import { IAuthor } from "../interface";

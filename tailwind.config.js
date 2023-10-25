@@ -5,4 +5,5 @@ module.exports = {
     "./src/components/**/*.{js,ts,jsx,tsx}",
     "./App.tsx",
   ],
+  plugins: [require("@tailwindcss/forms")],
 };

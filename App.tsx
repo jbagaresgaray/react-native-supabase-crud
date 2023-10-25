@@ -1,6 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { QueryClientProvider } from "react-query";
 
 import BottomTabs from "./src/navigators/BottomTabs";
@@ -10,9 +11,11 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <QueryClientProvider client={queryClient}>
-        <NavigationContainer>
-          <BottomTabs />
-        </NavigationContainer>
+        <SafeAreaProvider>
+          <NavigationContainer>
+            <BottomTabs />
+          </NavigationContainer>
+        </SafeAreaProvider>
       </QueryClientProvider>
     </GestureHandlerRootView>
   );

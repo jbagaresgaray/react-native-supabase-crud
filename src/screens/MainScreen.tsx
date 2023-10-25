@@ -9,6 +9,7 @@ import AppButton from "../components/AppButton";
 import AppDatePicker from "../components/AppDatePicker";
 import AppTextInput from "../components/AppTextInput";
 import useCreateAuthor from "../hooks/useCreateAuthor";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type FormData = {
   title?: string;
@@ -67,7 +68,7 @@ const MainScreen = () => {
   };
 
   return (
-    <View className="flex-1 flex relative items-center p-3 bg-white">
+    <SafeAreaView className="flex-1 flex relative items-center p-3 bg-white">
       <View className="flex-1 flex w-full spy">
         <AppTextInput
           label="Title"
@@ -106,7 +107,7 @@ const MainScreen = () => {
         label="Save"
         isLoading={createAuthorMutation.isLoading}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

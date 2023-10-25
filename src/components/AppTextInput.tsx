@@ -1,3 +1,4 @@
+import { styled } from "nativewind";
 import React from "react";
 import { Control, Controller } from "react-hook-form";
 import { View, Text, TextInput, TextInputProps } from "react-native";
@@ -8,18 +9,22 @@ interface Props extends TextInputProps {
   name: string;
 }
 
+const StyledText = styled(Text);
+const StyledTextInput = styled(TextInput);
+const StyledView = styled(View);
+
 const AppTextInput: React.FC<Props> = (props) => {
   const { label, control, name } = props;
   return (
-    <View className="mb-7">
-      <Text className="font-semibold leading-7 text-gray-900 text-base">
+    <StyledView className="mb-7">
+      <StyledText className="font-semibold leading-7 text-gray-900 text-base">
         {label}
-      </Text>
-      <View className="mt-2">
+      </StyledText>
+      <StyledView className="mt-2">
         <Controller
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
-            <TextInput
+            <StyledTextInput
               {...props}
               onBlur={onBlur}
               onChangeText={onChange}
@@ -29,8 +34,8 @@ const AppTextInput: React.FC<Props> = (props) => {
           )}
           name={name}
         />
-      </View>
-    </View>
+      </StyledView>
+    </StyledView>
   );
 };
 

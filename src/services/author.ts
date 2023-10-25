@@ -1,7 +1,7 @@
 import supabase from "./";
 import { IAuthor } from "../interface";
 
-export const createAuthor = async (author: IAuthor) => {
+export const _createAuthor = async (author: IAuthor) => {
   const { data, error, status } = await supabase
     .from("author")
     .insert({
@@ -18,7 +18,7 @@ export const createAuthor = async (author: IAuthor) => {
   }
 };
 
-export const getAuthor = async (id: number) => {
+export const _getAuthor = async (id: number) => {
   const { data, error, status } = await supabase
     .from("author")
     .select(`id, title, author, genre, publishedDate`)
@@ -34,7 +34,7 @@ export const getAuthor = async (id: number) => {
   }
 };
 
-export const getAllAuthors = async () => {
+export const _getAllAuthors = async () => {
   const { data, error, status } = await supabase
     .from("author")
     .select(`id, title, author, genre, publishedDate`);
@@ -48,7 +48,7 @@ export const getAllAuthors = async () => {
   }
 };
 
-export const updateAuthor = async (id: number, author: IAuthor) => {
+export const _updateAuthor = async (id: number, author: IAuthor) => {
   const { data, error, status } = await supabase
     .from("author")
     .update({
@@ -66,7 +66,7 @@ export const updateAuthor = async (id: number, author: IAuthor) => {
   }
 };
 
-export const deleteAuthor = async (id: number) => {
+export const _deleteAuthor = async (id: number) => {
   const { data, error, status } = await supabase
     .from("author")
     .delete()

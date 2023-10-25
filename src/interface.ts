@@ -1,7 +1,7 @@
 export interface IAuthor {
-  id: number;
+  id?: number;
   title: string;
   author: string;
-  publishedDate: string;
+  publishedDate: Date;
   genre: string;
 }

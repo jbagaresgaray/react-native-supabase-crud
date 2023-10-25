@@ -6,6 +6,8 @@ import * as yup from "yup";
 import AppTextInput from "../components/AppTextInput";
 import AppButton from "../components/AppButton";
 import AppDatePicker from "../components/AppDatePicker";
+import useCreateAuthor from "../hooks/useCreateAuthor";
+import { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 
 type FormData = {
   title: string;
@@ -23,10 +25,11 @@ const schema = yup.object({
 
 const MainScreen = () => {
   const [show, setShow] = useState(false);
+  const [curDate, setCurDate] = useState<Date>(new Date());
 
   const {
     control,
-    setValue,
+    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
@@ -39,15 +42,31 @@ const MainScreen = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const createAuthorMutation = useCreateAuthor({
+    title: getValues("title"),
+    author: getValues("author"),
+    publishedDate: curDate,
+    genre: getValues("genre"),
+  });
+
+  const onSubmit = handleSubmit((data) => {
+    createAuthorMutation.mutate();
+
+    console.log("data: ", data);
+    console.log("isLoading: ", createAuthorMutation.isLoading);
+    console.log("isSuccess: ", createAuthorMutation.isSuccess);
+    console.log("isError: ", createAuthorMutation.isError);
+  });
 
   const showDatepicker = () => {
     console.log("show");
     setShow(true);
   };
 
-  const onChange = (value) => {
-    console.log("value: ", value);
+  const onChange = (event: DateTimePickerEvent, value: Date) => {
+    if (event?.type === "set") {
+      setCurDate(value);
+    }
     setShow(false);
   };
 
@@ -59,18 +78,20 @@ const MainScreen = () => {
           placeholder="Title"
           control={control}
           name="title"
+          editable={!createAuthorMutation.isLoading}
         />
         <AppTextInput
           label="Author"
           placeholder="Author"
           control={control}
           name="author"
+          editable={!createAuthorMutation.isLoading}
         />
         <AppDatePicker
           label="Published Date"
           onPress={showDatepicker}
           show={show}
-          value={new Date()}
+          value={curDate}
           onClose={() => {
             setShow(false);
           }}
@@ -81,9 +102,14 @@ const MainScreen = () => {
           placeholder="Genre"
           control={control}
           name="genre"
+          editable={!createAuthorMutation.isLoading}
         />
       </View>
-      <AppButton label="Save" />
+      <AppButton
+        onPress={onSubmit}
+        label="Save"
+        isLoading={createAuthorMutation.isLoading}
+      />
     </View>
   );
 };

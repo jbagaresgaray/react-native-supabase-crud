@@ -1,12 +1,4 @@
-import React from "react";
-
-interface IAuthor {
-  id: number;
-  title: string;
-  author: string;
-  publishedDate: string;
-  genre: string;
-}
+import { IAuthor } from "../interface";
 
 const useAuthor = () => {
   const createAuthor = (author: IAuthor) => {};

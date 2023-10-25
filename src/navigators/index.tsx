@@ -1,8 +1,8 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useEffect } from "react";
 
+import BottomTabs from "./BottomTabs";
 import useGetAllAuthors from "../hooks/useGetAllAuthors";
-import ListScreen from "../screens/ListScreen";
 import MainScreen from "../screens/MainScreen";
 
 const MainStack = createNativeStackNavigator();
@@ -20,8 +20,12 @@ const RootNavigation = () => {
         headerShown: false,
       }}
     >
-      <MainStack.Screen name="Home" component={MainScreen} />
-      <MainStack.Screen name="ListScreen" component={ListScreen} />
+      <MainStack.Screen name="Tabs" component={BottomTabs} />
+      <MainStack.Screen
+        name="Form"
+        options={{ headerShown: true, title: "Edit Author" }}
+        component={MainScreen}
+      />
     </MainStack.Navigator>
   );
 };

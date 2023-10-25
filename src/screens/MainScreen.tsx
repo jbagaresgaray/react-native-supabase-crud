@@ -57,7 +57,7 @@ const MainScreen = () => {
 
   const isLoading = useMemo(
     () => createAuthorMutation.isLoading || updateAuthorMutation.isLoading,
-    [createAuthorMutation, updateAuthorMutation]
+    [createAuthorMutation, updateAuthorMutation],
   );
 
   useEffect(() => {

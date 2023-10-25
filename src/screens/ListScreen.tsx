@@ -3,10 +3,8 @@ import { styled } from "nativewind";
 import React from "react";
 import {
   View,
-  Text,
   FlatList,
   RefreshControl,
-  Image,
   ActivityIndicator,
   Alert,
 } from "react-native";

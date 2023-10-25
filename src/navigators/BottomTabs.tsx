@@ -1,7 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React, { useEffect } from "react";
 
-import TabBar from "../components/TabBar";
 import TabBarButton from "../components/TabBarButton";
 import useGetAllAuthors from "../hooks/useGetAllAuthors";
 import EmptyScreen from "../screens/EmptyScreen";
@@ -19,7 +18,6 @@ const BottomTabs = () => {
 
   return (
     <BottomTab.Navigator
-      // tabBar={(props) => <TabBar {...props} />}
       safeAreaInsets={{
         bottom: 0,
       }}

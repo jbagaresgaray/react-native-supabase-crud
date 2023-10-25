@@ -17,7 +17,11 @@ const BottomTabs = () => {
 
   return (
     <BottomTab.Navigator
-      screenOptions={{ tabBarIconStyle: { display: "none" }, tabBarLabelPosition: 'beside-icon' }}
+      screenOptions={{
+        tabBarIconStyle: { display: "none" },
+        tabBarLabelPosition: "beside-icon",
+        headerShown: false,
+      }}
     >
       <BottomTab.Screen name="First" component={MainScreen} />
       <BottomTab.Screen name="Second" component={ListScreen} />

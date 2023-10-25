@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 import { styled } from "nativewind";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -11,6 +11,7 @@ import AppButton from "../components/AppButton";
 import AppDatePicker from "../components/AppDatePicker";
 import AppTextInput from "../components/AppTextInput";
 import useCreateAuthor from "../hooks/useCreateAuthor";
+import { showMessage } from "react-native-flash-message";
 
 type FormData = {
   title?: string;
@@ -49,6 +50,15 @@ const MainScreen = () => {
     publishedDate: curDate,
     genre: getValues("genre"),
   });
+
+  useEffect(() => {
+    if (createAuthorMutation.isSuccess) {
+      return showMessage({
+        message: "Saved!",
+        description: "Record successfully saved",
+      });
+    }
+  }, [createAuthorMutation.isSuccess]);
 
   const onSubmit = handleSubmit((data) => {
     createAuthorMutation.mutate();

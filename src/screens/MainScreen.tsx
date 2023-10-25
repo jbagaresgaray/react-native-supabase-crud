@@ -1,19 +1,20 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { View } from "react-native";
 import * as yup from "yup";
-import AppTextInput from "../components/AppTextInput";
+
 import AppButton from "../components/AppButton";
 import AppDatePicker from "../components/AppDatePicker";
+import AppTextInput from "../components/AppTextInput";
 import useCreateAuthor from "../hooks/useCreateAuthor";
-import { DateTimePickerEvent } from "@react-native-community/datetimepicker";
 
 type FormData = {
-  title: string;
-  author: string;
-  publishedDate: Date;
-  genre: string;
+  title?: string;
+  author?: string;
+  publishedDate?: Date;
+  genre?: string;
 };
 
 const schema = yup.object({
@@ -27,12 +28,7 @@ const MainScreen = () => {
   const [show, setShow] = useState(false);
   const [curDate, setCurDate] = useState<Date>(new Date());
 
-  const {
-    control,
-    getValues,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormData>({
+  const { control, getValues, handleSubmit } = useForm<FormData>({
     defaultValues: {
       title: "",
       author: "",

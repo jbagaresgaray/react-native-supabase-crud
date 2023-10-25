@@ -2,18 +2,17 @@ import RNDateTimePicker, {
   BaseProps,
 } from "@react-native-community/datetimepicker";
 import React from "react";
-import { View, Text, Pressable, Modal } from "react-native";
+import { View, Text, Pressable } from "react-native";
 
 interface Props extends BaseProps {
   label: string;
   show: boolean;
   value: Date;
   onPress: () => void;
-  onClose: () => void;
 }
 
 const AppDatePicker: React.FC<Props> = (props) => {
-  const { label, show, value, onPress, onClose } = props;
+  const { label, show, value, onPress } = props;
 
   return (
     <View className="mb-7">
@@ -27,21 +26,6 @@ const AppDatePicker: React.FC<Props> = (props) => {
       >
         <Text>{value?.toString()}</Text>
       </Pressable>
-      {/* <Modal
-        visible={show}
-        animationType="slide"
-        onRequestClose={onClose}
-        // transparent
-      >
-        <View className="flex flex-1 justify-center items-center">
-          <RNDateTimePicker
-            {...props}
-            value={value}
-            mode="date"
-            display="inline"
-          />
-        </View>
-      </Modal> */}
       {show && (
         <RNDateTimePicker
           {...props}

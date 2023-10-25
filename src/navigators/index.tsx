@@ -1,10 +1,9 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useEffect } from "react";
 
-import MainScreen from "../screens/MainScreen";
-import ListScreen from "../screens/ListScreen";
-import useAuthorStore from "../stores/useAuthorStore";
 import useGetAllAuthors from "../hooks/useGetAllAuthors";
+import ListScreen from "../screens/ListScreen";
+import MainScreen from "../screens/MainScreen";
 
 const MainStack = createNativeStackNavigator();
 
@@ -21,7 +20,7 @@ const RootNavigation = () => {
         headerShown: false,
       }}
     >
-      {/* <MainStack.Screen name="Home" component={MainScreen} /> */}
+      <MainStack.Screen name="Home" component={MainScreen} />
       <MainStack.Screen name="ListScreen" component={ListScreen} />
     </MainStack.Navigator>
   );

@@ -8,18 +8,18 @@ import {
   Image,
   ActivityIndicator,
 } from "react-native";
-import useAuthorStore from "../stores/useAuthorStore";
+
 import useGetAllAuthors from "../hooks/useGetAllAuthors";
 import { IAuthor } from "../interface";
+import useAuthorStore from "../stores/useAuthorStore";
 
 const ListScreen = () => {
   const authors = useAuthorStore((state) => state.authors);
   const isLoading = useAuthorStore((state) => state.isLoading);
-  console.log("authors: ", authors);
-  const [refreshing, setRefreshing] = React.useState(false);
-  const getAllAuthorsMutation = useGetAllAuthors();
 
-  console.log("isLoading: ", isLoading);
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const getAllAuthorsMutation = useGetAllAuthors();
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);

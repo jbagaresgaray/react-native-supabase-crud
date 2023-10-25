@@ -1,7 +1,7 @@
 import React from "react";
 
 interface IAuthor {
-  id: number;
+  id?: number;
   title: string;
   author: string;
   publishedDate: string;

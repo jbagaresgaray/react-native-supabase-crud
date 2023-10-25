@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React, { useEffect } from "react";
 
+import TabBar from "../components/TabBar";
 import useGetAllAuthors from "../hooks/useGetAllAuthors";
 import EmptyScreen from "../screens/EmptyScreen";
 import ListScreen from "../screens/ListScreen";
@@ -17,6 +18,7 @@ const BottomTabs = () => {
 
   return (
     <BottomTab.Navigator
+      tabBar={(props) => <TabBar {...props} />}
       screenOptions={{
         tabBarIconStyle: { display: "none" },
         tabBarLabelPosition: "beside-icon",
